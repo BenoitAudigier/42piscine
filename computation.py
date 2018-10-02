@@ -32,6 +32,8 @@ def quicksort(current_list,g,d):
 
 # Comptute required values for one line
 def calculation(l):
+    print("Going for:" + str(l[0:10]))
+
     #prend en argument une liste
     l = list(l)
     n = len(l)
@@ -51,17 +53,9 @@ def calculation(l):
     for i in l:
         # si i n'est pas un entier, on ne le prend pas en compte dans les calculs
         ## TODO: rajouter un warning
-        if(i==np.nan):
+        if(i==np.nan or i == ''):
             continue
-        try:
-            sum = sum + i
-        except TypeError:
-            print(l)
-            print(sum)
-
-            print("fiu")
-            print(i)
-            print(sum + i)
+        sum = sum + i
         sum_carre = sum_carre + i**2
         if(i<min):
             mon = i
@@ -80,7 +74,7 @@ def calculation(l):
     # res["50%"]=l[int(n/2)]
     # res["75%"]=l[int(n*3/4)]
 
-    res = [sum,sum/n,(sum_carre/n - (sum/n)**2),min,l[int(n/4)],l[int(n/2)],l[int(n*3/4)],max]
+    res = [n,sum/n,(sum_carre/n - (sum/n)**2),min,l[int(n/4)],l[int(n/2)],l[int(n*3/4)],max]
     return(res)
 
 
@@ -95,17 +89,18 @@ def compute(dict):
 
     res = {}
     for key in dict:
-        values = dict[key]
-        for i in values:
-            #on considere que si la colonne est quantitative, les valeurs sont soit NA soit des chiffres
-            if(i != np.nan):
-                if type(i)==float or type(i)==int:
-                    res[key]= calculation(values)
-                    break
-
+        values = dict[key] #todo consider only the 5 firsts, or the first one as long as not ''
+        if(isNumericColumn(values)):
+            res[key]= calculation(values)
     return res
 
-
+# We consider that if we have a numeric value in first five values, then the column is numeric.
+# The value 5 and not one is to make sure the NA do not disturb the result.
+def isNumericColumn(column):
+    for c in column[0:5]:
+        if(type(c) == float or type(c) == int):
+            return(True)
+    return(False)
 
 
 
