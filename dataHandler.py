@@ -13,13 +13,14 @@ import csv # to read the csv
 
 # Retrieves data set name from argument given
 # Throws exception if bad call from command line
-def getDataSetPath():
+def getDataSetPath(fileName = None):
 
     # More than one file - could be a feature, todo
-    if(len(sys.argv) != 2):
+    if(len(sys.argv) != 2 and fileName is None):
         raise ValueError('Incorrect call of program')
 
-    fileName = sys.argv[1]
+    if(fileName is None):
+        fileName = sys.argv[1]
 
     # checking if csv
     if(re.match(r'.*.csv', fileName) is None):
@@ -33,8 +34,8 @@ def getDataSetPath():
 
 # returns a dictionnary with headers as key and list of values for value; path is the path to the csv (must be a csv)
 # Trows exception if bad call from command line
-def getDataSet():
-    path = getDataSetPath()
+def getDataSet(fileName = None):
+    path = getDataSetPath(fileName)
     return readCSV(path)
 
 # Reads a correctly formed csv

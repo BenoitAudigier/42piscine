@@ -1,6 +1,5 @@
 from dataHandler import getDataSet
 from computation import compute
-import computation
 
 def printSummaryForGivenDataset():
     # Reading file
@@ -10,12 +9,12 @@ def printSummaryForGivenDataset():
         print "Error: " + str(e)
         return None
 
-    for key in ds:
-        print "key: %s \n\n, value: %s \n\n\n" % (key, len(ds[key]))
+    # for key in ds:
+    #     print "key: %s \n\n, value: %s \n\n\n" % (key, len(ds[key]))
 
 
     # Computing required values
-    # info = compute(ds)
-    # print(info)
+    info = compute(ds)
+    print(info)
 
 printSummaryForGivenDataset()

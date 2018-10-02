@@ -39,7 +39,8 @@ def calculation(l):
     res=[]
 
     #pour calculer la mediane et les quantiles, on a besoin d'une liste triee
-    quicksort(l,0,n)
+    # quicksort(l,0,n)
+    l = sorted(l)
 
     #definition de variables pour calculer moyenne, std, min et max
     sum = 0
@@ -50,10 +51,17 @@ def calculation(l):
     for i in l:
         # si i n'est pas un entier, on ne le prend pas en compte dans les calculs
         ## TODO: rajouter un warning
-
         if(i==np.nan):
             continue
-        sum = sum + i
+        try:
+            sum = sum + i
+        except TypeError:
+            print(l)
+            print(sum)
+
+            print("fiu")
+            print(i)
+            print(sum + i)
         sum_carre = sum_carre + i**2
         if(i<min):
             mon = i
@@ -101,8 +109,8 @@ def compute(dict):
 
 
 
-dict = {}
-dict['a'] = [0,14,5,7,8]
-dict["b"] = ["f","fe","g","ge","d"]
-dict["c"]=[0,45,1,2,4]
-print(compute(dict))
+# dict = {}
+# dict['a'] = [0,14,5,7,8]
+# dict["b"] = ["f","fe","g","ge","d"]
+# dict["c"]=[0,45,1,2,4]
+# print(compute(dict))
