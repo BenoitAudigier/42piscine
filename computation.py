@@ -32,8 +32,7 @@ def quicksort(current_list,g,d):
 
 # Comptute required values for one line
 def calculation(l):
-    print("Going for:" + str(l[0:10]))
-
+    
     #prend en argument une liste
     l = list(l)
     n = len(l)
