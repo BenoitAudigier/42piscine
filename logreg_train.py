@@ -23,10 +23,6 @@ def getData(fileName = None):
     # Turning into matrix
     dsMat = np.array([dsNum[i] for i in dsNum])
 
-
-
-
-
     for i in range(dsMat.shape[0]):
         row = dsMat[i, :]
         stdev = np.std(np.array(row[row!=""], dtype = "float")) # Removing missing values
@@ -132,3 +128,5 @@ def gradLoss(j, theta, X, y_num, m, k):
 
 
 main(fileName = "dataset_train.csv")
+#TODO clean up that shit, add separation train and test, compute prediction, be better on missing values, comment
+# Source: http://blog.datumbox.com/machine-learning-tutorial-the-multinomial-logistic-regression-softmax-regression/ 
