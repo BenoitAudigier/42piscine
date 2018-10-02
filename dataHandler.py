@@ -52,6 +52,14 @@ def readCSV(path):
                 line_count += 1
             else:
                 for i in range(len(row)): # adding the values to each column
-                    res[colNames[i]] += [row[i]]
+                    res[colNames[i]] += [to_number_or_str(row[i])]
                 # line_count += 1
     return res
+
+# Give back str or float following the str given as argument
+def to_number_or_str(s):
+    try:
+        s = float(s)
+        return s
+    except ValueError:
+        return s
