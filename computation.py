@@ -48,11 +48,13 @@ def calculation(l):
     sum_carre = 0
     min = l[0]
     max = l[0]
+    nas = 0
     #en parcourant la liste, on calcule mean,std,min et max
     for i in l:
         # si i n'est pas un entier, on ne le prend pas en compte dans les calculs
         ## TODO: rajouter un warning
         if(i==np.nan or i == ''):
+            nas += 1
             continue
         sum = sum + i
         sum_carre = sum_carre + i**2
@@ -71,7 +73,8 @@ def calculation(l):
             "25%":l[int(n/4)],
             "50%":l[int(n/2)],
             "75%":l[int(n*3/4)],
-            "Max":max}
+            "Max":max,
+            "NA's":nas}
     return(res)
 
 
@@ -86,7 +89,7 @@ def compute(dict):
 
     res = {}
     for key in dict:
-        values = dict[key] #todo consider only the 5 firsts, or the first one as long as not ''
+        values = dict[key]
         if(isNumericColumn(key, values)):
             res[key]= calculation(values)
     return res

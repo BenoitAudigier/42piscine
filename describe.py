@@ -1,5 +1,5 @@
 from dataHandler import getDataSet
-from DataSummaryFunctions.computation import compute
+from computation import compute
 
 def printSummaryForGivenDataset():
     # Reading file
