@@ -15,8 +15,18 @@ def printSummaryForGivenDataset():
 
     # Computing required values
     info = compute(ds)
-    firstLine = ""
-    for key in ds:
-        firstLine += "\t" + key
-    print(firstLine)
+    keys = []
+    for key in info:
+        keys += [key]
+
+
+
+    print(info)
+
+
+
+
+
+
+
 printSummaryForGivenDataset()

@@ -32,7 +32,7 @@ def quicksort(current_list,g,d):
 
 # Comptute required values for one line
 def calculation(l):
-    
+
     #prend en argument une liste
     l = list(l)
     n = len(l)
@@ -46,8 +46,8 @@ def calculation(l):
     #definition de variables pour calculer moyenne, std, min et max
     sum = 0
     sum_carre = 0
-    min = 0
-    max = 0
+    min = l[0]
+    max = l[0]
     #en parcourant la liste, on calcule mean,std,min et max
     for i in l:
         # si i n'est pas un entier, on ne le prend pas en compte dans les calculs
@@ -73,7 +73,14 @@ def calculation(l):
     # res["50%"]=l[int(n/2)]
     # res["75%"]=l[int(n*3/4)]
 
-    res = [n,sum/n,(sum_carre/n - (sum/n)**2),min,l[int(n/4)],l[int(n/2)],l[int(n*3/4)],max]
+    res = {"Count":n,
+            "Mean":sum/n,
+            "Std":(sum_carre/n - (sum/n)**2),
+            "Min":min,
+            "25%":l[int(n/4)],
+            "50%":l[int(n/2)],
+            "75%":l[int(n*3/4)],
+            "Max":max}
     return(res)
 
 
@@ -89,13 +96,15 @@ def compute(dict):
     res = {}
     for key in dict:
         values = dict[key] #todo consider only the 5 firsts, or the first one as long as not ''
-        if(isNumericColumn(values)):
+        if(isNumericColumn(key, values)):
             res[key]= calculation(values)
     return res
 
 # We consider that if we have a numeric value in first five values, then the column is numeric.
 # The value 5 and not one is to make sure the NA do not disturb the result.
-def isNumericColumn(column):
+def isNumericColumn(colName, column):
+    if(colName == "Index"):
+        return(False)
     for c in column[0:5]:
         if(type(c) == float or type(c) == int):
             return(True)
