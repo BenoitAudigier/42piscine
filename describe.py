@@ -15,13 +15,13 @@ def printSummaryForGivenDataset():
 
     # Computing required values
     info = compute(ds)
-    keys = []
+    # keys = []
     for key in info:
-        keys += [key]
-
-
-
-    print(info)
+        # keys += [key]
+        print(key + "\n")
+        for stuff in info[key]:
+            print(stuff + ":" + "\t" + str(round(info[key][stuff], 3)))
+        print("\n")
 
 
 

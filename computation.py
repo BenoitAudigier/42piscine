@@ -64,15 +64,6 @@ def calculation(l):
 
     #on cree le dictionnaire res avec toutes les informations voulues
 
-    # res["mean"]=sum/n
-    # res["count"] = sum
-    # res["std"] = sum_carre/n - (sum/n)**2
-    # res["min"] = min
-    # res["max"]=max
-    # res["25%"]=l[int(n/4)]
-    # res["50%"]=l[int(n/2)]
-    # res["75%"]=l[int(n*3/4)]
-
     res = {"Count":n,
             "Mean":sum/n,
             "Std":(sum_carre/n - (sum/n)**2),
