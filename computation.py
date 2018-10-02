@@ -30,7 +30,7 @@ def quicksort(current_list,g,d):
 # input : une colonne d'un dataset en liste
 # output : dictionnaire res avec toutes les informations
 
-
+# Comptute required values for one line
 def calculation(l):
     #prend en argument une liste
     l = list(l)
@@ -80,7 +80,7 @@ def calculation(l):
 # input : dictionnaire avec en cles les noms des colonnes et en valeurs, la colonne sous forme de liste
 # output : dictiionnaire avec en cles les noms des colonnes quantitatives, et en valeurs, les informations summary sous forme de liste
 
-
+# Takes a dictionary and returns another one with the info on the numeric lists inside
 def compute(dict):
     #dict est un dictionnaire avec les noms des columns en cles
     # et une liste des valeurs en argument
