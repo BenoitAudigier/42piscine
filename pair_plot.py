@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 
 
 from histogram import plot_hist
-from histogram import distribute_per_house
+from preprocess_visual import distribute_per_house
 from scatter_plot import plot_scatter
 
 from dataHandler import getDataSet
