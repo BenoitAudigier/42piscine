@@ -39,8 +39,12 @@ def calculation(l):
 
     res=[]
 
-    #pour calculer la mediane et les quantiles, on a besoin d'une liste triee
+    #to compute median and quantiles, we need to sort the list
+    # we implemented before a quick sort
+    # nevertheless, to gain in computation time, we use sort() function
+    # for that, we need to remove na values 
     # quicksort(l,0,n)
+    l = [i for i in l if i !='']
     l = sorted(l)
 
     #definition de variables pour calculer moyenne, std, min et max
