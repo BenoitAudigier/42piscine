@@ -108,10 +108,3 @@ def isNumericColumn(colName, column):
             return(True)
     return(False)
 
-
-
-# dict = {}
-# dict['a'] = [0,14,5,7,8]
-# dict["b"] = ["f","fe","g","ge","d"]
-# dict["c"]=[0,45,1,2,4]
-# print(compute(dict))
