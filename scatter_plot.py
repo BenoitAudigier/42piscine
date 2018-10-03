@@ -75,8 +75,8 @@ def display_scatter(x_name,y_name,dict_per_house):
 #input : n = the number of plots we want to display
 # output : the n plots
 
-def display_all_scatter(n):
-	dict = getDataSet("dataset_train.csv")
+def display_all_scatter(n,fileName=None):
+	dict = getDataSet(fileName)
 	dict_per_house = distribute_per_house(dict)
 	c=1
 	for k in dict_per_house : 

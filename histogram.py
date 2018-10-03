@@ -125,8 +125,8 @@ def display_hist(x_name,dict,dict_per_house,k):
 #       k = bin of the histogram
 # output : the n plots
 
-def display_all_hist(n,k):
-    dict = getDataSet("dataset_train.csv")
+def display_all_hist(n,k,fileName = None):
+    dict = getDataSet(fileName)
     dict_per_house = distribute_per_house(dict)
     #init a counter
     c=1
