@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 from computation import compute, isNumericColumn
 from dataHandler import getDataSet
 
-
-#input :  pre_processed dict with all columns (quantitative or not), key = column name, values = column values
+# FUNCTION : create new dictionnary with the quantitative data + house granularity
+#input :  dict with all columns (quantitative or not), key = column name, values = column values
 #output : dict with only quantitative columns,
-#key = column name,values = dict with key = house, v = values of the marks for this house
+#key = column name,values = another dict with key = house, v = values of the marks for this house
 
 def distribute_per_house(dict):
     res = {}
@@ -20,8 +20,6 @@ def distribute_per_house(dict):
             for i in range(len(dict[key])):
                 #3. We retrieve the house for the i-th value
                 current_house = houses[i]
-                
-#TEST ON GARDE TOUTES LES VALEURS, MEME LES NA, IL FAUT LES ENLEVER JUSTE AU MOMENT DE PLOT
                 if current_house in values_per_house:
                     values_per_house[current_house].append(dict[key][i])
                 else :
@@ -32,10 +30,10 @@ def distribute_per_house(dict):
     return(res)
 
 
-#given a list of values, create a count list of length k
-#it s a list of the frequencies between min and max, with k intervals
-#be careful, the min and max when displaying the results are the min and max of the whole data and not per house
-
+#FUNCTION : intermediate function : given a list of float values, returns a list of length k
+# Count the number of values in each of the k intervals, k intervals are computed by dividing equally the distance between min and max by k 
+# be careful, min and max as arguments are not necessary the min and max of the values_list
+# indeed, values_list may be the values for a course for a house, while min and max are the min/max considering all houses
 def count(values_list,min,max,k):
 
     #1.create a count list, output of the algo
@@ -53,9 +51,11 @@ def count(values_list,min,max,k):
             count[index]+=1
     return count
 
+#FUNCTION : intermediate functions to plot the hist
 #to plot the hist, we have to plot rectangles and have to need to dupplicate points on x axis
 def coord_x_axis(min,max,k):
     res = [min]
+    #the limits of the intervals are computed by dividing the distance between min and max in k equal intervals
     for i in range(1,k):
         #to plot rectangles, we need to have two points per abscisses
         res.append(int(min+(max-min)/k*i))
@@ -64,9 +64,11 @@ def coord_x_axis(min,max,k):
     return res
 
 
-#to plot the hist, we have to plot rectangles and dupplicate points
+#to plot the hist, we have to plot rectangles and dupplicate points, for a same abs x, we have two values : 
+# one of the value of the count of values in the interval ending by x
+# one of the value of the count of values in the interval beginning by x
+#as a result, we just have to dupplicate the count list 
 def coord_y_axis(values_list,min,max,k):
-
     c = count(values_list,min,max,k)
     res = []
     for i in c:
@@ -75,73 +77,69 @@ def coord_y_axis(values_list,min,max,k):
     return res
 
 
+#FUNCTION : return the histogram plot
+#input : ax : axes, needed when calling displaying functions
+#   x_name  = name of the feature to plot
+#   dict = dict of the whole data with the course granularity
+#   dict_per_house = dict of the data with course/house granularity
+#   k : bin of the histogramme
 
-#input : dict with all (needed for the summary)
-#output : plots of one hist per field, with 4 lines on each : one per house
-def display_hist(name,dict,k):
-    per_house = distribute_per_house(dict)
+#output : plots of the histogram for the "name" course, with 4 distributions : one per house
+def plot_hist(ax,name,dict,dict_per_house,k):
+    #we compute the summary from the dictionnary, as we need the min and max info to compute the histogram
+    per_house = dict_per_house
     summary = compute(dict)
 
-    #per 'matiere scolaire', we compute a plot
+    #we filter the data only for the course that we are looking for : with the var "name"
     per_house_values = per_house[name]
     min_global = summary[name]["Min"]
     max_global = summary[name]["Max"]
 
+    #compute the coord for the x axis
     x=coord_x_axis(min_global,max_global,k)
     legend = []
-    #per house per matiere scolaire, we add a line on the plot
+    #now, we add a line per house
     for house in per_house_values :
         y=coord_y_axis(per_house_values[house],min_global,max_global,k)
-        plt.plot(x,y)
+        ax.plot(x,y)
         legend.append(house)
-    plt.title(name)
-    plt.legend(legend)
+    #ax.set_title(name)
+    ax.legend(legend)
+    ax.set_xlabel(name)
+    ax.set_xlim(min_global,max_global)
+    return(ax)
 
-    plt.xlim(min_global,max_global)
+
+
+#FUNCTION to display one histogram
+
+def display_hist(x_name,dict,dict_per_house,k):
+    f,ax = plt.subplots()
+    plot_hist(ax,x_name,dict,dict_per_house,k)
     plt.show()
+        
+
+
+#FUNCTION to display the n first histograms
+#input : n = the number of plots we want to display
+#       k = bin of the histogram
+# output : the n plots
+
+def display_all_hist(n,k):
+    dict = getDataSet("dataset_train.csv")
+    dict_per_house = distribute_per_house(dict)
+    #init a counter
+    c=1
+    for key in dict_per_house : 
+        if (c<=n):
+            display_hist(key,dict,dict_per_house,k)
+            c+=1
 
 
 
 
-
-
-#input : dict with all (needed for the summary)
-#output : plots of one hist per field, with 4 lines on each : one per house
-def display_hist_all(dict,k):
-    #dict with the house distribution of the quantitative values
-    per_house = distribute_per_house(dict)
-    summary = compute(dict)
-
-    #per 'matiere scolaire', we compute a plot
-    for key in per_house:
-        per_house_values = per_house[key]
-        min_global = summary[key]["Min"]
-        max_global = summary[key]["Max"]
-
-        x=coord_x_axis(min_global,max_global,k)
-        legend = []
-        #per house per matiere scolaire, we add a line on the plot
-        for house in per_house_values :
-            y=coord_y_axis(per_house_values[house],min_global,max_global,k)
-            plt.plot(x,y)
-            legend.append(house)
-        plt.title(key)
-        plt.legend(legend)
-
-        plt.xlim(min_global,max_global)
-        plt.show()
+display_all_hist(5,50)
 
 
 
-dict = getDataSet("dataset_train.csv")
-#dict = distribute_per_house(dict)
-
-compt = 1
-for k in dict : 
-    if(k!="Index" and isNumericColumn(k, dict[k])):
-        print(compt)
-        print(k)
-        if(compt<10):
-            display_hist(k,dict,16)
-        compt +=1
     
