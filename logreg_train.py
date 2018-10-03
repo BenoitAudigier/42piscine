@@ -1,4 +1,3 @@
-# TODO be better on missing values
 # Source: http://blog.datumbox.com/machine-learning-tutorial-the-multinomial-logistic-regression-softmax-regression/
 
 from dataHandler import getDataSet
