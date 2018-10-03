@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 
 
 from histogram import plot_hist
-from histogram import distribute_per_house
+from preprocess_visual import distribute_per_house
 from scatter_plot import plot_scatter
 
 from dataHandler import getDataSet
@@ -13,12 +13,12 @@ from dataHandler import getDataSet
 # return the pair plot (histograms + scatter_plot)
 
 
-def display_pair_plot():
+def display_pair_plot(fileName=None):
 
 	#consider two versions of the data : 
 	#dict the whole dataset with keys = columns names, values = list columns values
 	#dict_per_house with only columns of interest (with marks), keys = column name, val = dict with key = house, values = columns values for this house
-	dict = getDataSet("dataset_train.csv")
+	dict = getDataSet(fileName)
 	dict_per_house = distribute_per_house(dict)
 
 
