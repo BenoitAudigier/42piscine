@@ -2,7 +2,7 @@ import logreg_train as lt
 import numpy as np
 import csv
 
-def predictFromCSV(fileName):
+def predictFromCSV(fileName = None):
 	# Get data
 	X, X_1 = lt.getData(fileName, training = False)
 
@@ -21,3 +21,7 @@ def predictFromCSV(fileName):
 	    writer = csv.writer(output, lineterminator='\n')
 	    writer.writerows([["Index", "Hogwarts House"]])
 	    writer.writerows(preds)
+
+
+
+predictFromCSV()

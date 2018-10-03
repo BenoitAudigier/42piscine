@@ -243,3 +243,11 @@ def readScalingParams():
 
     # return(res, np.array([houseNumberConversion(y_i) for y_i in res]))
 
+
+
+
+
+
+
+
+train(training = T)
