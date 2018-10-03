@@ -11,7 +11,7 @@ def getData(fileName = None):
         ds = getDataSet(fileName)
     except ValueError as e:
         print "Error: " + str(e)
-        return None
+        return(None)
 
     # Isolate numeric columns
     dsNum = {}
@@ -129,4 +129,4 @@ def gradLoss(j, theta, X, y_num, m, k):
 
 main(fileName = "dataset_train.csv")
 #TODO clean up that shit, add separation train and test, compute prediction, be better on missing values, comment
-# Source: http://blog.datumbox.com/machine-learning-tutorial-the-multinomial-logistic-regression-softmax-regression/ 
+# Source: http://blog.datumbox.com/machine-learning-tutorial-the-multinomial-logistic-regression-softmax-regression/
