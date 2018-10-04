@@ -12,9 +12,9 @@ import matplotlib.pyplot as plt
 #return : the scatter plot
 
 
-def plot_scatter(ax,x_name, y_name, dict_per_house):	
+def plot_scatter(ax,x_name, y_name, dict_per_house):
 
-	# retrieve the data 
+	# retrieve the data
 	x_dict = dict_per_house[x_name]
 	y_dict = dict_per_house[y_name]
 
@@ -23,9 +23,9 @@ def plot_scatter(ax,x_name, y_name, dict_per_house):
 	legend = []
 
 	# looping on the house
-	for house in x_dict : 
-		x_values = x_dict[house].copy()
-		y_values = y_dict[house].copy()
+	for house in x_dict :
+		x_values = x_dict[house][:]
+		y_values = y_dict[house][:]
 		# we have to remove na values, if one value is na in x_values should also be removed from y_values
 		index_na_x = []
 		index_na_y = []
@@ -62,13 +62,17 @@ def plot_scatter(ax,x_name, y_name, dict_per_house):
 	return(ax)
 
 
+
+
+
+
 #FUNCTION to display one scatter plot
 
 def display_scatter(x_name,y_name,dict_per_house):
 	f,ax = plt.subplots()
 	plot_scatter(ax,x_name,y_name,dict_per_house)
 	plt.show()
-		
+
 
 
 #FUNCTION to display the n first scatter_plot
@@ -79,8 +83,8 @@ def display_all_scatter(n,fileName=None):
 	dict = getDataSet(fileName)
 	dict_per_house = distribute_per_house(dict)
 	c=1
-	for k in dict_per_house : 
-		for j in dict_per_house : 
+	for k in dict_per_house :
+		for j in dict_per_house :
 			if (k!=j and c<=n):
 				display_scatter(k,j,dict_per_house)
 				c+=1
@@ -89,5 +93,3 @@ def display_all_scatter(n,fileName=None):
 
 
 display_all_scatter(5)
-
-			
