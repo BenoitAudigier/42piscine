@@ -116,7 +116,7 @@ def loss(theta, X_1, y_num):
         # Adding the loss of the individual
         J += np.log(hypoFun(theta_j, theta, x_i))
     # Averaging and inverting sign
-    J = -J/local_m
+    J = -J/float(local_m)
     return J
 # Computes the gradient of the loss function
 def gradLoss(j, theta, X_1, y_num):
@@ -128,14 +128,14 @@ def gradLoss(j, theta, X_1, y_num):
         # Adding the gradient loss of the individual
         DJ += x_i*(abs(j==y_num[i]) - hypoFun(theta_j, theta, x_i))
     # Averaging and inverting sign
-    DJ = -DJ/local_m
+    DJ = -DJ/float(local_m)
     return DJ
 # computes the hypothesis function
 def hypoFun(theta_j, theta, x_i):
         return(
             (np.exp(np.dot(x_i, theta_j)))
             /
-            sum(np.exp(np.dot(theta.T, x_i)))
+            float(sum(np.exp(np.dot(theta.T, x_i))))
         )
 
 
@@ -158,7 +158,7 @@ def predictMat(theta, X_topred_1):
 def calcAccuracy(y_pred, y_real):
     if(len(y_pred) != len(y_real)):
         raise ValueError("Trying to compute accuracy of unmatching size vectors (real vs prediction)")
-    return(sum(y_real == y_pred)/len(y_pred))
+    return(float(sum(y_real == y_pred))/float(len(y_pred)))
 
 
 
@@ -190,6 +190,3 @@ def readScalingParams():
 
 
     # return(res, np.array([houseNumberConversion(y_i) for y_i in res]))
-
-
-
